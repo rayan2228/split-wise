@@ -1,0 +1,22 @@
+@import "tailwindcss";
+
+@layer base {
+  body {
+    @apply text-white bg-[#1D293D];
+  }
+}
+
+@layer utilities {
+  .container {
+    @apply max-w-330 mx-auto;
+  }
+  .btn {
+    @apply py-1 px-3 rounded-md cursor-pointer transition-colors flex gap-1 items-center border border-gray-300/30;
+  }
+  .btn-dark {
+    @apply bg-slate-700 hover:bg-slate-700/80;
+  }
+  .btn-primary {
+    @apply bg-green-700 hover:bg-green-700/80;
+  }
+}

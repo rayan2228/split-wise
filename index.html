@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="/src/style.css" rel="stylesheet" />
+
+    <title>split-wise</title>
+  </head>
+  <body>
+    <nav class="bg-black py-2">
+      <div class="container">
+        <div class="flex items-center justify-between">
+          <div class="flex items-center gap-2">
+            <div
+              class="bg-linear-to-bl from-[#00bc85] to-[#00bba0] p-1 rounded-md"
+            >
+              <i data-lucide="wallet"></i>
+            </div>
+            <div>
+              <h2>SplitWise</h2>
+              <h6 class="text-[8px] text-gray-400">Share expenses fairly</h6>
+            </div>
+          </div>
+          <div class="flex gap-2">
+            <button class="btn btn-dark">
+              <i data-lucide="upload" size="16"></i> Import
+            </button>
+            <button class="btn btn-primary">
+              <i data-lucide="download"></i> Export
+            </button>
+          </div>
+        </div>
+      </div>
+    </nav>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script>
+      lucide.createIcons();
+    </script>
+  </body>
+</html>
