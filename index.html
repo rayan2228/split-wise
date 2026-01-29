@@ -39,7 +39,7 @@
       <div class="container">
         <div class="flex gap-5">
           <div
-            class="bg-slate-700 shadow-lg w-1/2 border border-gray-300/30 p-4 rounded-lg"
+            class="bg-slate-800 shadow-lg w-1/2 border border-gray-300/30 p-4 rounded-lg"
           >
             <div class="flex items-center gap-2">
               <i data-lucide="userPlus" class="text-green-400"></i>
@@ -54,18 +54,20 @@
               <button class="btn btn-primary py-2! px-4!">Add</button>
             </form>
             <div>
-              <ul>
+              <ul class="flex flex-col gap-2 my-4">
                 <li
-                  class="border border-gray-500 rounded-lg p-2 bg-slate-800 flex items-center justify-between"
+                  class="border border-gray-500 rounded-lg p-2 px-3 bg-slate-900 flex items-center justify-between"
                 >
                   <h6>user 1</h6>
-                  <i data-lucide="x" class="text-red-400 cursor-pointer"></i>
+                  <button>
+                    <i data-lucide="x" class="text-red-400 cursor-pointer"></i>
+                  </button>
                 </li>
               </ul>
             </div>
           </div>
           <div
-            class="bg-slate-700 shadow-lg w-1/2 border border-gray-300/30 p-4 rounded-lg"
+            class="bg-slate-800 shadow-lg w-1/2 border border-gray-300/30 p-4 rounded-lg"
           >
             <div class="flex items-center gap-2">
               <i data-lucide="dollar-sign" class="text-green-400"></i>
@@ -100,10 +102,54 @@
                 </select>
               </div>
               <button class="btn btn-primary w-full flex justify-center">
-                Add
+                Add Expense
               </button>
             </form>
           </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="my-10">
+      <div class="container">
+        <div
+          class="bg-slate-800 shadow-lg border border-gray-300/30 p-4 rounded-lg"
+        >
+          <div class="flex items-center justify-between">
+            <div class="flex items-center justify-between gap-2">
+              <i data-lucide="wallet" class="text-green-400"></i>
+              <h5>Expense</h5>
+            </div>
+            <div>
+              <h5 class="text-right text-gray-400">Total</h5>
+              <h5 class="text-green-400">$ <span>3434.00</span></h5>
+            </div>
+          </div>
+          <ul class="flex flex-col gap-2 my-4">
+            <li
+              class="border border-gray-500 rounded-lg p-2 px-3 bg-slate-900 flex items-center justify-between"
+            >
+              <div>
+                <h6>user 1</h6>
+                <div class="flex gap-2 items-center text-sm text-gray-400">
+                  <h6>Paid by asdasd</h6>
+                  <div class="flex items-center gap-2">
+                    <i data-lucide="calendar" class="w-4"></i>
+                    <h6>1/29/2026</h6>
+                  </div>
+                </div>
+              </div>
+              <div class="flex items-center gap-6">
+                <h5 class="text-green-400">$ <span>3434.00</span></h5>
+                <button>
+                  <i
+                    data-lucide="trash"
+                    class="text-red-400 cursor-pointer w-5"
+                  ></i>
+                </button>
+              </div>
+            </li>
+          </ul>
         </div>
       </div>
     </section>
