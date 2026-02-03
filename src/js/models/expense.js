@@ -1,4 +1,4 @@
-class Expense {
+export class Expense {
   constructor(paidBy, amount, description = "no description") {
     if (!paidBy.trim() || typeof paidBy !== "string") {
       throw new Error("paid by  must be a string type");
