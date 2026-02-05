@@ -45,9 +45,10 @@
               <i data-lucide="userPlus" class="text-green-400"></i>
               <h3>Add Users</h3>
             </div>
-            <form class="flex items-center gap-2 my-4">
+            <form id="addUserForm" class="flex items-center gap-2 my-4">
               <input
                 type="text"
+                id="addUserInput"
                 placeholder="Enter name..."
                 class="grow border-2 border-gray-400 rounded-lg p-2 bg-slate-800 focus:border-green-700 outline-none"
               />
@@ -98,7 +99,6 @@
                   id="paid-by"
                   class="border-2 border-gray-400 rounded-lg p-2 bg-slate-800 focus:border-green-700 outline-none"
                 >
-                  <option value="0">Select user...</option>
                 </select>
               </div>
               <button class="btn btn-primary w-full flex justify-center">

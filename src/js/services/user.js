@@ -13,12 +13,13 @@ export class UserService {
       throw new Error("user name already exists");
     }
     this.userCollection.set(name, createdUser);
+    return createdUser
   }
 
   hasUser(name) {
     return this.userCollection.has(name);
   }
-  
+
   getAllUser() {
     return Array.from(this.userCollection.values());
   }
