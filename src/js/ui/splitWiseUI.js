@@ -4,6 +4,7 @@ export class SplitWiseUI {
   constructor(userService) {
     this.userService = userService;
     this.initialingDOMs();
+    this.bindEvents();
   }
   // initialingDOMs
   initialingDOMs() {
@@ -19,25 +20,28 @@ export class SplitWiseUI {
     this.elements.addUserForm.addEventListener("submit", (e) =>
       this.handleAddUserForm(e),
     );
-    this.elements.addUserInput.addEventListener(
-      "input",
-      (e) => this.handleAddUserInput,
+    this.elements.addUserInput.addEventListener("input", (e) =>
+      this.handleAddUserInput(e),
     );
   }
 
   handleAddUserForm(e) {
-    e.preventDefault();
-    const userName = this.handleAddUserInput();
-    const createdUser = this.userService.createUser(userName);
-    console.log(createdUser);
-    return createdUser;
+    try {
+      e.preventDefault();
+      const userName = this.elements.addUserInput.value;
+      if (!userName.trim()) {
+        throw new Error("user name required");
+      }
+      const createdUser = this.userService.createUser(userName);
+      console.log(createdUser);
+      this.elements.addUserForm.reset();
+    } catch (error) {
+      throw new Error("adding user error", error);
+    }
   }
 
   handleAddUserInput(e) {
     const userName = e.target.value;
-    if (!userName.trim()) {
-      throw new Error("user name required");
-    }
     return userName;
   }
 
