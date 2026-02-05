@@ -9,18 +9,22 @@ export class UserService {
       throw new Error("user name must be a string type");
     }
     const createdUser = new User(name);
-    if (this.userCollection.has(name)) {
+    if (this.hasUser(name)) {
       throw new Error("user name already exists");
     }
     this.userCollection.set(name, createdUser);
   }
 
+  hasUser(name) {
+    return this.userCollection.has(name);
+  }
+  
   getAllUser() {
     return Array.from(this.userCollection.values());
   }
 
   getUser(name) {
-    if (!this.userCollection.has(name)) {
+    if (!this.hasUser(name)) {
       throw new Error("user not found");
     }
     return this.userCollection.get(name);
