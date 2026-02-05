@@ -1,7 +1,9 @@
 import { User } from "../models/user.js";
 
-class UserService {
-  userCollection = new Map();
+export class UserService {
+  constructor() {
+    this.userCollection = new Map();
+  }
   createUser(name) {
     if (!name.trim() || typeof name !== "string") {
       throw new Error("user name must be a string type");
@@ -35,9 +37,3 @@ class UserService {
     return this.userCollection.clear();
   }
 }
-const user = new UserService();
-
-user.createUser("rayan");
-user.createUser("rayan2");
-user.createUser("rayan3");
-user.createUser("rayan4");
