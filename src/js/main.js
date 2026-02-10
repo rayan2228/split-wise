@@ -25,3 +25,10 @@ document.addEventListener("DOMContentLoaded", () => {
   spiliwise = new SplitWiseInit();
   spiliwise.init();
 });
+
+window.addEventListener("load", () => {
+  if (!spiliwise) {
+    spiliwise = new SplitWiseInit();
+    spiliwise.init();
+  }
+});
