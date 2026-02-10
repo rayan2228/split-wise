@@ -3,7 +3,7 @@ export class Expense {
     if (!paidBy.trim() || typeof paidBy !== "string") {
       throw new Error("paid by  must be a string type");
     }
-    if (!amount.trim() || typeof amount !== "number" || amount <= 0) {
+    if (!amount || typeof amount !== "number" || amount <= 0) {
       throw new Error("amount must be a positive number");
     }
     this.paidBy = paidBy.trim();

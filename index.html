@@ -74,29 +74,29 @@
               <i data-lucide="dollar-sign" class="text-green-400"></i>
               <h3>Add Expense</h3>
             </div>
-            <form class="flex flex-col items-start gap-2 my-4">
+            <form class="flex flex-col items-start gap-2 my-4" id="addExpenseForm">
               <div class="flex flex-col w-full gap-2">
-                <label for="description">Description</label>
+                <label for="expenseDescription">Description</label>
                 <input
                   type="text"
-                  id="description"
+                  id="expenseDescription"
                   placeholder="e.g., Dinner, Groceries..."
                   class="border-2 border-gray-400 rounded-lg p-2 bg-slate-800 focus:border-green-700 outline-none"
                 />
               </div>
               <div class="flex flex-col w-full gap-2">
-                <label for="amount">Amount</label>
+                <label for="expenseAmount">Amount</label>
                 <input
                   type="number"
-                  id="amount"
+                  id="expenseAmount"
                   placeholder="0.0"
                   class="border-2 border-gray-400 rounded-lg p-2 bg-slate-800 focus:border-green-700 outline-none"
                 />
               </div>
               <div class="flex flex-col w-full gap-2">
-                <label for="paid-by">Paid by</label>
+                <label for="expensePaidBy">Paid by</label>
                 <select
-                  id="paid-by"
+                  id="expensePaidBy"
                   class="border-2 border-gray-400 rounded-lg p-2 bg-slate-800 focus:border-green-700 outline-none capitalize"
                 ></select>
               </div>

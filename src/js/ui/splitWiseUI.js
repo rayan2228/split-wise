@@ -1,3 +1,4 @@
+import { Expense } from "../models/expense";
 import { DOMHelper } from "./DOMHelper";
 import { errorToastify, successToastify } from "./tostify";
 
@@ -14,7 +15,10 @@ export class SplitWiseUI {
     this.elements = {
       addUserForm: DOMHelper.domElementChecker("addUserForm"),
       addUserInput: DOMHelper.domElementChecker("addUserInput"),
-      paidBySelectBox: DOMHelper.domElementChecker("paid-by"),
+      expensePaidBy: DOMHelper.domElementChecker("expensePaidBy"),
+      addExpenseForm: DOMHelper.domElementChecker("addExpenseForm"),
+      expenseDescription: DOMHelper.domElementChecker("expenseDescription"),
+      expenseAmount: DOMHelper.domElementChecker("expenseAmount"),
     };
     return this.elements;
   }
@@ -23,8 +27,9 @@ export class SplitWiseUI {
     this.elements.addUserForm.addEventListener("submit", (e) =>
       this.handleAddUserForm(e),
     );
-    this.elements.addUserInput.addEventListener("input", (e) =>
-      this.handleAddUserInput(e),
+    this.elements.addUserInput.addEventListener("input", (e) => e.target.value);
+    this.elements.addExpenseForm.addEventListener("submit", (e) =>
+      this.handleAddExpenseForm(e),
     );
   }
 
@@ -44,18 +49,40 @@ export class SplitWiseUI {
     }
   }
 
-  handleAddUserInput(e) {
-    const userName = e.target.value;
-    return userName;
-  }
-
   addUserIntoOption(userName) {
     const paidByUser = DOMHelper.createOption(userName, userName);
-    this.elements.paidBySelectBox.add(paidByUser);
+    this.elements.expensePaidBy.add(paidByUser);
+  }
+
+  handleAddExpenseForm(e) {
+    try {
+      e.preventDefault();
+      const expenseDescription = this.elements.expenseDescription.value;
+      const expenseAmount = this.elements.expenseAmount.valueAsNumber;
+      const expensePaidBy = this.elements.expensePaidBy.value;
+      if (!expensePaidBy) {
+        throw new Error("expense paid by user is required");
+      }
+      if (!expenseAmount || expenseAmount <= 0) {
+        throw new Error("expense amount must be grater than 0");
+      }
+      const newExpense = new Expense(
+        expensePaidBy,
+        expenseAmount,
+        expenseDescription,
+      );
+      successToastify(
+        `${newExpense.amount} is paided by ${newExpense.paidBy} `,
+      );
+      this.elements.expenseDescription.value = "";
+      this.elements.expenseAmount.valueAsNumber = 0.0;
+    } catch (error) {
+      errorToastify(error);
+    }
   }
 
   initialingOptions() {
     const defaultOption = DOMHelper.createOption("Select User", "");
-    this.elements.paidBySelectBox.add(defaultOption);
+    this.elements.expensePaidBy.add(defaultOption);
   }
 }

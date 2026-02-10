@@ -1,6 +1,7 @@
 import { UserService } from "./services/user";
 import { SplitWiseUI } from "./ui/splitWiseUI";
 import { ExpenseService } from "./services/expense";
+import { errorToastify } from "./ui/tostify";
 
 class SplitWiseInit {
   constructor() {
@@ -14,6 +15,7 @@ class SplitWiseInit {
       this.splitWiseUI = new SplitWiseUI(this.userService, this.expenseService);
       console.log("SplitWise app is running");
     } catch (error) {
+      errorToastify(error);
       throw new Error("SplitWise app is not running", error);
     }
   }
