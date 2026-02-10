@@ -1,12 +1,27 @@
 import { UserService } from "./services/user";
 import { SplitWiseUI } from "./ui/splitWiseUI";
+import { ExpenseService } from "./services/expense";
 
 class SplitWiseInit {
   constructor() {
     this.userService = new UserService();
-    this.splitWiseUI = new SplitWiseUI(this.userService);
-    console.log("running");
+    this.expenseService = new ExpenseService();
+    this.splitWiseUI = null;
+  }
+
+  init() {
+    try {
+      this.splitWiseUI = new SplitWiseUI(this.userService, this.expenseService);
+      console.log("SplitWise app is running");
+    } catch (error) {
+      throw new Error("SplitWise app is not running", error);
+    }
   }
 }
 
-new SplitWiseInit();
+let spiliwise;
+
+document.addEventListener("DOMContentLoaded", () => {
+  spiliwise = new SplitWiseInit();
+  spiliwise.init();
+});

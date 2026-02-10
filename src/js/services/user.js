@@ -1,4 +1,4 @@
-import { User } from "../models/user.js";
+import { User } from "../models/user";
 
 export class UserService {
   constructor() {
@@ -6,14 +6,14 @@ export class UserService {
   }
   createUser(name) {
     if (!name.trim() || typeof name !== "string") {
-      throw new Error("user name must be a string type");
+      throw new Error("user name must be a string");
     }
     const createdUser = new User(name);
     if (this.hasUser(name)) {
       throw new Error("user name already exists");
     }
     this.userCollection.set(name, createdUser);
-    return createdUser
+    return createdUser;
   }
 
   hasUser(name) {

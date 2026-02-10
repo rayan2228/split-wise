@@ -1,16 +1,18 @@
-import { DOMValidation } from "./DOMValidation";
+import { DOMHelper } from "./DOMHelper";
+
 
 export class SplitWiseUI {
-  constructor(userService) {
+  constructor(userService, expenseService) {
     this.userService = userService;
+    this.expenseService = expenseService;
     this.initialingDOMs();
     this.bindEvents();
   }
   // initialingDOMs
   initialingDOMs() {
     this.elements = {
-      addUserForm: DOMValidation.domElementChecker("addUserForm"),
-      addUserInput: DOMValidation.domElementChecker("addUserInput"),
+      addUserForm: DOMHelper.domElementChecker("addUserForm"),
+      addUserInput: DOMHelper.domElementChecker("addUserInput"),
     };
     return this.elements;
   }
