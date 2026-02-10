@@ -8,7 +8,7 @@ export class SplitWiseUI {
     this.bindEvents();
     this.initialingOptions();
   }
-  // initialingDOMs
+
   initialingDOMs() {
     this.elements = {
       addUserForm: DOMHelper.domElementChecker("addUserForm"),
@@ -18,7 +18,6 @@ export class SplitWiseUI {
     return this.elements;
   }
 
-  // bindEvents
   bindEvents() {
     this.elements.addUserForm.addEventListener("submit", (e) =>
       this.handleAddUserForm(e),
@@ -36,7 +35,7 @@ export class SplitWiseUI {
         throw new Error("user name required");
       }
       const createdUser = this.userService.createUser(userName);
-      console.log(createdUser);
+      this.addUserIntoOption(createdUser.name);
       this.elements.addUserForm.reset();
     } catch (error) {
       throw new Error("adding user error", error);
@@ -48,7 +47,11 @@ export class SplitWiseUI {
     return userName;
   }
 
-  // initialingOptions
+  addUserIntoOption(userName) {
+    const paidByUser = DOMHelper.createOption(userName, userName);
+    this.elements.paidBySelectBox.add(paidByUser);
+  }
+
   initialingOptions() {
     const defaultOption = DOMHelper.createOption("Select User", "");
     this.elements.paidBySelectBox.add(defaultOption);
