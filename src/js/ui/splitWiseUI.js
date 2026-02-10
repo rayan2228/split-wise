@@ -1,4 +1,5 @@
 import { DOMHelper } from "./DOMHelper";
+import { errorToastify, successToastify } from "./tostify";
 
 export class SplitWiseUI {
   constructor(userService, expenseService) {
@@ -36,9 +37,10 @@ export class SplitWiseUI {
       }
       const createdUser = this.userService.createUser(userName);
       this.addUserIntoOption(createdUser.name);
+      successToastify(`${createdUser.name} user is created`);
       this.elements.addUserForm.reset();
     } catch (error) {
-      throw new Error("adding user error", error);
+      errorToastify(error);
     }
   }
 
