@@ -5,4 +5,8 @@ export class DOMHelper {
     }
     return document.getElementById(elementId);
   }
+
+  static createOption(text, value, ...props) {
+    return new Option(text, value, ...props);
+  }
 }

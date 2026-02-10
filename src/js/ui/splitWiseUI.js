@@ -1,18 +1,19 @@
 import { DOMHelper } from "./DOMHelper";
 
-
 export class SplitWiseUI {
   constructor(userService, expenseService) {
     this.userService = userService;
     this.expenseService = expenseService;
     this.initialingDOMs();
     this.bindEvents();
+    this.initialingOptions();
   }
   // initialingDOMs
   initialingDOMs() {
     this.elements = {
       addUserForm: DOMHelper.domElementChecker("addUserForm"),
       addUserInput: DOMHelper.domElementChecker("addUserInput"),
+      paidBySelectBox: DOMHelper.domElementChecker("paid-by"),
     };
     return this.elements;
   }
@@ -48,4 +49,8 @@ export class SplitWiseUI {
   }
 
   // initialingOptions
+  initialingOptions() {
+    const defaultOption = DOMHelper.createOption("Select User", "");
+    this.elements.paidBySelectBox.add(defaultOption);
+  }
 }
