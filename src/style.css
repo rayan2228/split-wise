@@ -19,7 +19,8 @@
   .btn-primary {
     @apply bg-green-700 hover:bg-green-700/80;
   }
-  .user-list {
+  .list {
     @apply border border-gray-500 rounded-lg p-2 px-3 bg-slate-900 flex items-center justify-between;
   }
+
 }

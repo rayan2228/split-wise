@@ -1,3 +1,4 @@
+import moment from "moment";
 import { Expense } from "../models/expense";
 import { DOMHelper } from "./DOMHelper";
 import { errorToastify, successToastify } from "./tostify";
@@ -20,6 +21,7 @@ export class SplitWiseUI {
       addExpenseForm: DOMHelper.domElementChecker("addExpenseForm"),
       expenseDescription: DOMHelper.domElementChecker("expenseDescription"),
       expenseAmount: DOMHelper.domElementChecker("expenseAmount"),
+      expenseList: DOMHelper.domElementChecker("expenseList"),
     };
     return this.elements;
   }
@@ -56,7 +58,8 @@ export class SplitWiseUI {
       <button>
         <i data-lucide="x" class="text-red-400 cursor-pointer"></i>
       </button>`;
-    const li = DOMHelper.createList(userListTemplate, "user-list");
+    const li = DOMHelper.createList(userListTemplate, "list");
+
     this.elements.userList.append(li);
     lucide.createIcons();
   }
@@ -88,9 +91,35 @@ export class SplitWiseUI {
       );
       this.elements.expenseDescription.value = "";
       this.elements.expenseAmount.valueAsNumber = 0.0;
+      this.showExpenseOnUi(newExpense);
     } catch (error) {
       errorToastify(error);
     }
+  }
+
+  showExpenseOnUi(expense) {
+    const expenseListTemplate = `<div>
+        <h6>${expense.description || "untitled"}</h6> 
+        <div class="flex gap-2 items-center text-sm text-gray-400">
+          <h6>Paid by ${expense.paidBy}</h6>
+          <div class="flex items-center gap-2">
+            <i data-lucide="calendar" class="w-4"></i>
+            <h6>${moment(expense.date).format('MMMM Do YYYY, h:mm a')}</h6>
+          </div>
+        </div>
+      </div>
+      <div class="flex items-center gap-6">
+        <h5 class="text-green-400">
+          &#2547 <span>${expense.amount}</span>
+        </h5>
+        <button>
+          <i data-lucide="trash" class="text-red-400 cursor-pointer w-5"></i>
+        </button>
+      </div>`;
+    const li = DOMHelper.createList(expenseListTemplate, "list");
+
+    this.elements.expenseList.append(li);
+    lucide.createIcons();
   }
 
   initialingOptions() {
