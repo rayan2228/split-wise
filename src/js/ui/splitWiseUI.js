@@ -15,6 +15,7 @@ export class SplitWiseUI {
     this.elements = {
       addUserForm: DOMHelper.domElementChecker("addUserForm"),
       addUserInput: DOMHelper.domElementChecker("addUserInput"),
+      userList: DOMHelper.domElementChecker("userList"),
       expensePaidBy: DOMHelper.domElementChecker("expensePaidBy"),
       addExpenseForm: DOMHelper.domElementChecker("addExpenseForm"),
       expenseDescription: DOMHelper.domElementChecker("expenseDescription"),
@@ -42,11 +43,22 @@ export class SplitWiseUI {
       }
       const createdUser = this.userService.createUser(userName);
       this.addUserIntoOption(createdUser.name);
+      this.showUserOnUi(createdUser.name);
       successToastify(`${createdUser.name} user is created`);
       this.elements.addUserForm.reset();
     } catch (error) {
       errorToastify(error);
     }
+  }
+
+  showUserOnUi(userName) {
+    const userListTemplate = `<h6>${userName}</h6>
+      <button>
+        <i data-lucide="x" class="text-red-400 cursor-pointer"></i>
+      </button>`;
+    const li = DOMHelper.createList(userListTemplate, "user-list");
+    this.elements.userList.append(li);
+    lucide.createIcons();
   }
 
   addUserIntoOption(userName) {

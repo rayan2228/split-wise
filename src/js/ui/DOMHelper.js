@@ -9,4 +9,13 @@ export class DOMHelper {
   static createOption(text, value, ...props) {
     return new Option(text, value, ...props);
   }
+
+  static createList(children, className) {
+    const li = document.createElement("li");
+    li.innerHTML = children;
+    if (className) {
+      li.classList.add(className);
+    }
+    return li;
+  }
 }

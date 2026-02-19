@@ -12,6 +12,7 @@ class SplitWiseInit {
 
   init() {
     try {
+      lucide.createIcons();
       this.splitWiseUI = new SplitWiseUI(this.userService, this.expenseService);
       console.log("SplitWise app is running");
     } catch (error) {
@@ -21,16 +22,16 @@ class SplitWiseInit {
   }
 }
 
-let spiliwise;
+let spiltiwise;
 
 document.addEventListener("DOMContentLoaded", () => {
-  spiliwise = new SplitWiseInit();
-  spiliwise.init();
+  spiltiwise = new SplitWiseInit();
+  spiltiwise.init();
 });
 
 window.addEventListener("load", () => {
-  if (!spiliwise) {
-    spiliwise = new SplitWiseInit();
-    spiliwise.init();
+  if (!spiltiwise) {
+    spiltiwise = new SplitWiseInit();
+    spiltiwise.init();
   }
 });
