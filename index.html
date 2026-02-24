@@ -55,9 +55,7 @@
               <button class="btn btn-primary py-2! px-4!">Add</button>
             </form>
             <div>
-              <ul class="flex flex-col gap-2 my-4" id="userList">
-               
-              </ul>
+              <ul class="flex flex-col gap-2 my-4" id="userList"></ul>
             </div>
           </div>
           <div
@@ -67,7 +65,10 @@
               <i data-lucide="dollar-sign" class="text-green-400"></i>
               <h3>Add Expense</h3>
             </div>
-            <form class="flex flex-col items-start gap-2 my-4" id="addExpenseForm">
+            <form
+              class="flex flex-col items-start gap-2 my-4"
+              id="addExpenseForm"
+            >
               <div class="flex flex-col w-full gap-2">
                 <label for="expenseDescription">Description</label>
                 <input
@@ -114,18 +115,19 @@
             </div>
             <div>
               <h5 class="text-right text-gray-400">Total</h5>
-              <h5 class="text-green-400">&#2547 <span id="totalExpense">0</span></h5>
+              <h5 class="text-green-400">
+                &#2547; <span id="totalExpense">0</span>
+              </h5>
             </div>
           </div>
-          <ul class="flex flex-col gap-2 my-4" id="expenseList">
-           
-          </ul>
+          <ul class="flex flex-col gap-2 my-4" id="expenseList"></ul>
         </div>
       </div>
     </section>
     <div class="flex items-center justify-center my-5">
       <button
-        class="bg-linear-to-bl from-[#00bc85] to-[#00bba0] px-6 py-3 rounded-bl-lg rounded-tr-lg cursor-pointer hover:shadow-md shadow-green-300 transition-shadow" id="calculateSplit"
+        class="bg-linear-to-bl from-[#00bc85] to-[#00bba0] px-6 py-3 rounded-bl-lg rounded-tr-lg cursor-pointer hover:shadow-md shadow-green-300 transition-shadow"
+        id="calculateSplit"
       >
         Calculate Split
       </button>

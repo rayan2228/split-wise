@@ -20,8 +20,12 @@ export class UserService {
     return this.userCollection.has(name);
   }
 
-  getAllUser() {
-    return Array.from(this.userCollection.values());
+  getTotalUser() {
+    return this.userCollection.size;
+  }
+
+  getUserNames() {
+    return Array.from(this.userCollection.keys());
   }
 
   getUser(name) {

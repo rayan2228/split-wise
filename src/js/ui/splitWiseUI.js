@@ -24,6 +24,7 @@ export class SplitWiseUI {
       expenseAmount: DOMHelper.domElementChecker("expenseAmount"),
       expenseList: DOMHelper.domElementChecker("expenseList"),
       totalExpense: DOMHelper.domElementChecker("totalExpense"),
+      calculateSplit: DOMHelper.domElementChecker("calculateSplit"),
     };
     return this.elements;
   }
@@ -35,6 +36,9 @@ export class SplitWiseUI {
     this.elements.addUserInput.addEventListener("input", (e) => e.target.value);
     this.elements.addExpenseForm.addEventListener("submit", (e) =>
       this.handleAddExpenseForm(e),
+    );
+    this.elements.calculateSplit.addEventListener("click", () =>
+      this.calculateSplit(),
     );
   }
 
@@ -124,6 +128,17 @@ export class SplitWiseUI {
     lucide.createIcons();
   }
 
+  calculateSplit() {
+    try {
+      const result = this.expenseService.simplifyExpense();
+      this.displaySplitResult(result);
+    } catch (error) {
+      errorToastify(`Error simplifying Expense ${error}`);
+    }
+  }
+  displaySplitResult(result) {
+    console.log("hello");
+  }
   initialingOptions() {
     const defaultOption = DOMHelper.createOption("Select User", "");
     this.elements.expensePaidBy.add(defaultOption);

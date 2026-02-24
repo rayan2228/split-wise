@@ -42,4 +42,59 @@ export class ExpenseService {
   deleteAllExpense() {
     return (this.allExpenses = []);
   }
+
+  simplifyExpense() {
+    const userCount = this.userService.getTotalUser();
+    if (!userCount) return [];
+
+    const net = {};
+    const userNames = this.userService.getUserNames();
+
+    // initialize balances
+    userNames.forEach((name) => (net[name] = 0));
+
+    // calculate net balances
+    this.allExpenses.forEach((expense) => {
+      const share = expense.amount / userCount;
+
+      userNames.forEach((name) => {
+        if (name === expense.paidBy) {
+          net[name] += expense.amount - share;
+        } else {
+          net[name] -= share;
+        }
+      });
+    });
+
+    return this.calculateSettlements(net);
+  }
+
+  calculateSettlements(net) {
+    const result = [];
+
+    const names = Object.keys(net)
+      .filter((name) => net[name] !== 0)
+      .sort((a, b) => net[a] - net[b]);
+
+    let i = 0;
+    let j = names.length - 1;
+
+    while (i < j) {
+      const debtor = names[i];
+      const creditor = names[j];
+
+      const amount = Math.min(-net[debtor], net[creditor]);
+
+      if (amount > 0) {
+        result.push(`${debtor} owes ${creditor} ${amount.toFixed(2)}`);
+
+        net[debtor] += amount;
+        net[creditor] -= amount;
+      }
+
+      if (net[debtor] === 0) i++;
+      if (net[creditor] === 0) j--;
+    }
+    return result;
+  }
 }
