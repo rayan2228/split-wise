@@ -1,5 +1,4 @@
 import moment from "moment";
-import { Expense } from "../models/expense";
 import { DOMHelper } from "./DOMHelper";
 import { errorToastify, successToastify } from "./tostify";
 
@@ -10,6 +9,8 @@ export class SplitWiseUI {
     this.initialingDOMs();
     this.bindEvents();
     this.initialingOptions();
+    this.elements.totalExpense.innerText =
+      this.expenseService.getTotalExpense();
   }
 
   initialingDOMs() {
@@ -22,6 +23,7 @@ export class SplitWiseUI {
       expenseDescription: DOMHelper.domElementChecker("expenseDescription"),
       expenseAmount: DOMHelper.domElementChecker("expenseAmount"),
       expenseList: DOMHelper.domElementChecker("expenseList"),
+      totalExpense: DOMHelper.domElementChecker("totalExpense"),
     };
     return this.elements;
   }
@@ -81,14 +83,12 @@ export class SplitWiseUI {
       if (!expenseAmount || expenseAmount <= 0) {
         throw new Error("expense amount must be grater than 0");
       }
-      const newExpense = new Expense(
+      const newExpense = this.expenseService.createExpense(
         expensePaidBy,
         expenseAmount,
         expenseDescription,
       );
-      successToastify(
-        `${newExpense.amount} is paided by ${newExpense.paidBy} `,
-      );
+      successToastify(`${newExpense.amount} is paid by ${newExpense.paidBy} `);
       this.elements.expenseDescription.value = "";
       this.elements.expenseAmount.valueAsNumber = 0.0;
       this.showExpenseOnUi(newExpense);
@@ -98,13 +98,15 @@ export class SplitWiseUI {
   }
 
   showExpenseOnUi(expense) {
+    this.elements.totalExpense.innerText =
+      this.expenseService.getTotalExpense();
     const expenseListTemplate = `<div>
         <h6>${expense.description || "untitled"}</h6> 
         <div class="flex gap-2 items-center text-sm text-gray-400">
           <h6>Paid by ${expense.paidBy}</h6>
           <div class="flex items-center gap-2">
             <i data-lucide="calendar" class="w-4"></i>
-            <h6>${moment(expense.date).format('MMMM Do YYYY, h:mm a')}</h6>
+            <h6>${moment(expense.date).format("MMMM Do YYYY, h:mm a")}</h6>
           </div>
         </div>
       </div>

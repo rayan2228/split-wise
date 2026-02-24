@@ -1,12 +1,12 @@
+import { ExpenseService } from "./services/expense";
 import { UserService } from "./services/user";
 import { SplitWiseUI } from "./ui/splitWiseUI";
-import { ExpenseService } from "./services/expense";
 import { errorToastify } from "./ui/tostify";
 
 class SplitWiseInit {
   constructor() {
     this.userService = new UserService();
-    this.expenseService = new ExpenseService();
+    this.expenseService = new ExpenseService(this.userService);
     this.splitWiseUI = null;
   }
 

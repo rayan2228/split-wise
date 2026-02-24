@@ -19,6 +19,13 @@ export class ExpenseService {
     return [...this.allExpenses];
   }
 
+  getTotalExpense() {
+    return this.allExpenses.reduce(
+      (total, expense) => total + expense.amount,
+      0,
+    );
+  }
+
   getExpenseByUser(userName) {
     if (!this.userService.hasUser(userName)) {
       throw new Error("user not found");
