@@ -24,7 +24,11 @@ export class DOMHelper {
 
     return li;
   }
-
+  static appendWithFragment(parent, items) {
+    const fragment = document.createDocumentFragment();
+    items.forEach((item) => fragment.appendChild(item));
+    parent.appendChild(fragment);
+  }
   static cleanUi(element) {
     element.innerHTML = "";
   }

@@ -139,49 +139,59 @@ export class SplitWiseUI {
       errorToastify(`Error simplifying Expense ${error}`);
     }
   }
+
   displaySplitResult(result) {
     this.cleanSplitResults();
-    result.shouldReceive.forEach(({ name, amount }) => {
-      const list = `<h6>${name}</h6><h6 class="text-green-400">&#2547; +${amount}</h6>`;
-      const li = DOMHelper.createList(list, [
-        "flex",
-        "items-center",
-        "justify-between",
-      ]);
-      this.elements.shouldReceive.appendChild(li);
-    });
-    result.shouldPay.forEach(({ name, amount }) => {
-      const list = `<h6>${name}</h6><h6 class="text-red-400">&#2547; ${amount}</h6>`;
-      const li = DOMHelper.createList(list, [
-        "flex",
-        "items-center",
-        "justify-between",
-      ]);
-      this.elements.shouldPay.appendChild(li);
-    });
-    result.suggestedSettlements.forEach(({ creditor, debtor, amount }) => {
-      const list = `
-    <div class="flex items-center gap-2">
-      <h6>${debtor}</h6>
-      <i data-lucide="arrow-right" class="text-gray-300 w-4"></i>
-      <h6>${creditor}</h6>
-    </div>
-    <h6 class="text-green-400">&#2547; +${amount}</h6>
-  `;
 
-      const li = DOMHelper.createList(list, [
-        "flex",
-        "items-center",
-        "justify-between",
-        "bg-gray-700",
-        "border",
-        "p-2",
-        "rounded-md",
-        "border-gray-600",
-      ]);
+    const receiveItems = result.shouldReceive.map(({ name, amount }) =>
+      DOMHelper.createList(
+        `<h6>${name}</h6>
+       <h6 class="text-green-400">&#2547; +${amount}</h6>`,
+        ["flex", "items-center", "justify-between"],
+      ),
+    );
 
-      this.elements.suggestedSettlements.appendChild(li);
-    });
+    DOMHelper.appendWithFragment(this.elements.shouldReceive, receiveItems);
+
+    const payItems = result.shouldPay.map(({ name, amount }) =>
+      DOMHelper.createList(
+        `<h6>${name}</h6>
+       <h6 class="text-red-400">&#2547; ${amount}</h6>`,
+        ["flex", "items-center", "justify-between"],
+      ),
+    );
+
+    DOMHelper.appendWithFragment(this.elements.shouldPay, payItems);
+
+    const settlementItems = result.suggestedSettlements.map(
+      ({ creditor, debtor, amount }) =>
+        DOMHelper.createList(
+          `
+        <div class="flex items-center gap-2">
+          <h6>${debtor}</h6>
+          <i data-lucide="arrow-right" class="text-gray-300 w-4"></i>
+          <h6>${creditor}</h6>
+        </div>
+        <h6 class="text-green-400">&#2547; +${amount}</h6>
+        `,
+          [
+            "flex",
+            "items-center",
+            "justify-between",
+            "bg-gray-700",
+            "border",
+            "p-2",
+            "rounded-md",
+            "border-gray-600",
+          ],
+        ),
+    );
+
+    DOMHelper.appendWithFragment(
+      this.elements.suggestedSettlements,
+      settlementItems,
+    );
+
     lucide.createIcons();
   }
   cleanSplitResults() {
