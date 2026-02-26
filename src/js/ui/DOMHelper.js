@@ -13,9 +13,19 @@ export class DOMHelper {
   static createList(children, className) {
     const li = document.createElement("li");
     li.innerHTML = children;
+
     if (className) {
-      li.classList.add(className);
+      if (Array.isArray(className)) {
+        li.classList.add(...className);
+      } else {
+        li.classList.add(className);
+      }
     }
+
     return li;
+  }
+
+  static cleanUi(element) {
+    element.innerHTML = "";
   }
 }

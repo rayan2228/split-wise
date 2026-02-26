@@ -70,24 +70,43 @@ export class ExpenseService {
   }
 
   calculateSettlements(net) {
-    const result = [];
-
+    const result = {
+      shouldReceive: [],
+      shouldPay: [],
+      suggestedSettlements: [],
+    };
     const names = Object.keys(net)
       .filter((name) => net[name] !== 0)
       .sort((a, b) => net[a] - net[b]);
-
     let i = 0;
     let j = names.length - 1;
-
     while (i < j) {
       const debtor = names[i];
       const creditor = names[j];
-
+      const shouldAddCreditor = result.shouldReceive.find(
+        ({ name }) => name === creditor,
+      );
+      if (!shouldAddCreditor) {
+        result.shouldReceive.push({
+          name: creditor,
+          amount: Number(net[creditor].toFixed(2)),
+        });
+      }
+      const shouldPay = result.shouldPay.find(({ name }) => name === debtor);
+      if (!shouldPay) {
+        result.shouldPay.push({
+          name: debtor,
+          amount: Number(net[debtor].toFixed(2)),
+        });
+      }
       const amount = Math.min(-net[debtor], net[creditor]);
 
       if (amount > 0) {
-        result.push(`${debtor} owes ${creditor} ${amount.toFixed(2)}`);
-
+        result.suggestedSettlements.push({
+          creditor,
+          debtor,
+          amount: Number(amount.toFixed(2)),
+        });
         net[debtor] += amount;
         net[creditor] -= amount;
       }

@@ -25,6 +25,9 @@ export class SplitWiseUI {
       expenseList: DOMHelper.domElementChecker("expenseList"),
       totalExpense: DOMHelper.domElementChecker("totalExpense"),
       calculateSplit: DOMHelper.domElementChecker("calculateSplit"),
+      shouldReceive: DOMHelper.domElementChecker("shouldReceive"),
+      shouldPay: DOMHelper.domElementChecker("shouldPay"),
+      suggestedSettlements: DOMHelper.domElementChecker("suggestedSettlements"),
     };
     return this.elements;
   }
@@ -137,7 +140,55 @@ export class SplitWiseUI {
     }
   }
   displaySplitResult(result) {
-    console.log("hello");
+    this.cleanSplitResults();
+    result.shouldReceive.forEach(({ name, amount }) => {
+      const list = `<h6>${name}</h6><h6 class="text-green-400">&#2547; +${amount}</h6>`;
+      const li = DOMHelper.createList(list, [
+        "flex",
+        "items-center",
+        "justify-between",
+      ]);
+      this.elements.shouldReceive.appendChild(li);
+    });
+    result.shouldPay.forEach(({ name, amount }) => {
+      const list = `<h6>${name}</h6><h6 class="text-red-400">&#2547; ${amount}</h6>`;
+      const li = DOMHelper.createList(list, [
+        "flex",
+        "items-center",
+        "justify-between",
+      ]);
+      this.elements.shouldPay.appendChild(li);
+    });
+    result.suggestedSettlements.forEach(({ creditor, debtor, amount }) => {
+      const list = `
+    <div class="flex items-center gap-2">
+      <h6>${debtor}</h6>
+      <i data-lucide="arrow-right" class="text-gray-300 w-4"></i>
+      <h6>${creditor}</h6>
+    </div>
+    <h6 class="text-green-400">&#2547; +${amount}</h6>
+  `;
+
+      const li = DOMHelper.createList(list, [
+        "flex",
+        "items-center",
+        "justify-between",
+        "bg-gray-700",
+        "border",
+        "p-2",
+        "rounded-md",
+        "border-gray-600",
+      ]);
+
+      this.elements.suggestedSettlements.appendChild(li);
+    });
+    lucide.createIcons();
+  }
+  cleanSplitResults() {
+    const { shouldPay, shouldReceive, suggestedSettlements } = this.elements;
+    DOMHelper.cleanUi(shouldReceive);
+    DOMHelper.cleanUi(shouldPay);
+    DOMHelper.cleanUi(suggestedSettlements);
   }
   initialingOptions() {
     const defaultOption = DOMHelper.createOption("Select User", "");
