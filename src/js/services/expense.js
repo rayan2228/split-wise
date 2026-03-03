@@ -116,4 +116,15 @@ export class ExpenseService {
     }
     return result;
   }
+
+  importExpenses(expenseData) {
+    if (!Array.isArray(expenseData)) {
+      throw new Error("expense data must be an array");
+    }
+
+    const importedExpenses = expenseData
+      .filter((exp) => exp && exp.paidBy && exp.amount)
+      .map((exp) => new Expense(exp.paidBy, exp.amount, exp.description));
+    this.allExpenses.push(...importedExpenses);
+  }
 }

@@ -21,4 +21,32 @@ export class StorageService {
     document.body.removeChild(a);
     URL.revokeObjectURL(url);
   }
+
+  importData(file) {
+    return new Promise((resolve, reject) => {
+      if (!file) {
+        reject(new Error("no file selected"));
+        return;
+      }
+      const reader = new FileReader();
+      reader.addEventListener("load", (e) => {
+        try {
+          const data = JSON.parse(e.target.result);
+          if (!data.users || !data.expenses) {
+            throw new Error("invalid file format");
+          }
+          this.userService.importUsers(data.users);
+          this.expenseService.importExpenses(data.expenses);
+          resolve(data);
+        } catch (error) {
+          reject(`failed to import data ${error}`);
+        }
+      });
+      reader.addEventListener("error", () => {
+        reject(new Error("Error reading file"));
+      });
+
+      reader.readAsText(file);
+    });
+  }
 }

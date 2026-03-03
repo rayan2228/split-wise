@@ -30,6 +30,8 @@ export class SplitWiseUI {
       shouldPay: DOMHelper.domElementChecker("shouldPay"),
       suggestedSettlements: DOMHelper.domElementChecker("suggestedSettlements"),
       exportBtn: DOMHelper.domElementChecker("exportBtn"),
+      importBtn: DOMHelper.domElementChecker("importBtn"),
+      inputFile: DOMHelper.domElementChecker("inputFile"),
     };
     return this.elements;
   }
@@ -47,6 +49,12 @@ export class SplitWiseUI {
     );
     this.elements.exportBtn.addEventListener("click", () =>
       this.handleExportData(),
+    );
+    this.elements.importBtn.addEventListener("click", () =>
+      this.elements.inputFile.click(),
+    );
+    this.elements.inputFile.addEventListener("change", (e) =>
+      this.handleImportData(e),
     );
   }
 
@@ -212,5 +220,17 @@ export class SplitWiseUI {
 
   handleExportData() {
     this.storageService.exportData();
+  }
+  async handleImportData(e) {
+    try {
+      const file = e.target.files[0];
+      if (!file) return;
+      const d = await this.storageService.importData(file);
+      console.log(d);
+      
+    } catch (error) {
+      console.log(error);
+      
+    }
   }
 }

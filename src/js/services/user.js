@@ -49,4 +49,13 @@ export class UserService {
   deleteAllUser() {
     return this.userCollection.clear();
   }
+
+  importUsers(userData) {
+    if (!Array.isArray(userData)) {
+      throw new Error("user data must be an array");
+    }
+    userData.forEach((user) => {
+      this.userCollection.set(user.name, new User(user.name));
+    });
+  }
 }
