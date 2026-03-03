@@ -225,12 +225,13 @@ export class SplitWiseUI {
     try {
       const file = e.target.files[0];
       if (!file) return;
-      const d = await this.storageService.importData(file);
-      console.log(d);
-      
+      await this.storageService.importData(file);
+      this.refreshUi();
+      successToastify("data imported successfully");
     } catch (error) {
-      console.log(error);
-      
+      errorToastify("data not imported");
     }
   }
+
+  refreshUi() {}
 }
