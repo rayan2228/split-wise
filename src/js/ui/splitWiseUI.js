@@ -3,9 +3,10 @@ import { DOMHelper } from "./DOMHelper";
 import { errorToastify, successToastify } from "./tostify";
 
 export class SplitWiseUI {
-  constructor(userService, expenseService) {
+  constructor(userService, expenseService, storageService) {
     this.userService = userService;
     this.expenseService = expenseService;
+    this.storageService = storageService;
     this.initialingDOMs();
     this.bindEvents();
     this.initialingOptions();
@@ -28,6 +29,7 @@ export class SplitWiseUI {
       shouldReceive: DOMHelper.domElementChecker("shouldReceive"),
       shouldPay: DOMHelper.domElementChecker("shouldPay"),
       suggestedSettlements: DOMHelper.domElementChecker("suggestedSettlements"),
+      exportBtn: DOMHelper.domElementChecker("exportBtn"),
     };
     return this.elements;
   }
@@ -42,6 +44,9 @@ export class SplitWiseUI {
     );
     this.elements.calculateSplit.addEventListener("click", () =>
       this.calculateSplit(),
+    );
+    this.elements.exportBtn.addEventListener("click", () =>
+      this.handleExportData(),
     );
   }
 
@@ -203,5 +208,9 @@ export class SplitWiseUI {
   initialingOptions() {
     const defaultOption = DOMHelper.createOption("Select User", "");
     this.elements.expensePaidBy.add(defaultOption);
+  }
+
+  handleExportData() {
+    this.storageService.exportData();
   }
 }

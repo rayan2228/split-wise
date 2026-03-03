@@ -1,4 +1,5 @@
 import { ExpenseService } from "./services/expense";
+import { StorageService } from "./services/storageService";
 import { UserService } from "./services/user";
 import { SplitWiseUI } from "./ui/splitWiseUI";
 import { errorToastify } from "./ui/tostify";
@@ -7,13 +8,21 @@ class SplitWiseInit {
   constructor() {
     this.userService = new UserService();
     this.expenseService = new ExpenseService(this.userService);
+    this.storageService = new StorageService(
+      this.userService,
+      this.expenseService,
+    );
     this.splitWiseUI = null;
   }
 
   init() {
     try {
       lucide.createIcons();
-      this.splitWiseUI = new SplitWiseUI(this.userService, this.expenseService);
+      this.splitWiseUI = new SplitWiseUI(
+        this.userService,
+        this.expenseService,
+        this.storageService,
+      );
       console.log("SplitWise app is running");
     } catch (error) {
       errorToastify(error);

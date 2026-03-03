@@ -24,10 +24,10 @@
             </div>
           </div>
           <div class="flex gap-2">
-            <button class="btn btn-dark">
+            <button class="btn btn-dark" id="importBtn">
               <i data-lucide="upload" size="16"></i> Import
             </button>
-            <button class="btn btn-primary">
+            <button class="btn btn-primary" id="exportBtn">
               <i data-lucide="download"></i> Export
             </button>
           </div>
@@ -146,25 +146,19 @@
               class="w-1/2 border border-gray-500 rounded-lg p-2 px-3 bg-slate-900"
             >
               <h6 class="text-gray-400">Should Receive</h6>
-              <ul class="flex flex-col gap-2 mt-2" id="shouldReceive">
-               
-              </ul>
+              <ul class="flex flex-col gap-2 mt-2" id="shouldReceive"></ul>
             </div>
             <div
               class="w-1/2 border border-gray-500 rounded-lg p-2 px-3 bg-slate-900"
             >
               <h6 class="text-gray-400">Should Pay</h6>
-              <ul class="flex flex-col gap-2 mt-2" id="shouldPay">
-
-              </ul>
+              <ul class="flex flex-col gap-2 mt-2" id="shouldPay"></ul>
             </div>
           </div>
 
           <div class="border border-gray-500 rounded-lg p-2 px-3 bg-slate-900">
             <h6 class="text-gray-400">Suggested Settlements</h6>
-            <ul class="flex flex-col gap-2 mt-2" id="suggestedSettlements">
-              
-            </ul>
+            <ul class="flex flex-col gap-2 mt-2" id="suggestedSettlements"></ul>
           </div>
         </div>
       </div>
