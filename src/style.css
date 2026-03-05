@@ -8,7 +8,10 @@
 
 @layer utilities {
   .container {
-    @apply max-w-330 mx-auto;
+    @apply max-w-330 mx-auto px-2;
+    @variant sm {
+      @apply px-0;
+    }
   }
   .btn {
     @apply py-1 px-3 rounded-md cursor-pointer transition-colors flex gap-1 items-center border border-gray-300/30;
@@ -22,5 +25,4 @@
   .list {
     @apply border border-gray-500 rounded-lg p-2 px-3 bg-slate-900 flex items-center justify-between;
   }
-
 }
