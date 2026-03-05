@@ -238,10 +238,13 @@ export class SplitWiseUI {
   refreshUi() {
     // Refresh user select options
     DOMHelper.removeElement(this.elements.expensePaidBy);
+    DOMHelper.removeElement(this.elements.userList);
     this.initialingOptions();
-    this.userService
-      .getUserNames()
-      .forEach((name) => this.addUserIntoOption(name));
+    this.userService.getUserNames().forEach((name) => {
+      this.addUserIntoOption(name);
+      this.showUserOnUi(name);
+    });
+
     // Refresh expense list
     DOMHelper.removeElement(this.elements.expenseList);
     this.expenseService
