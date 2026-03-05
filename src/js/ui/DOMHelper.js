@@ -32,4 +32,10 @@ export class DOMHelper {
   static cleanUi(element) {
     element.innerHTML = "";
   }
+
+  static removeElement(element) {
+    while (element.firstChild) {
+      element.removeChild(element.firstChild);
+    }
+  }
 }

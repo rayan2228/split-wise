@@ -230,8 +230,26 @@ export class SplitWiseUI {
       successToastify("data imported successfully");
     } catch (error) {
       errorToastify("data not imported");
+    } finally {
+      e.target.value = "";
     }
   }
 
-  refreshUi() {}
+  refreshUi() {
+    // Refresh user select options
+    DOMHelper.removeElement(this.elements.expensePaidBy);
+    this.initialingOptions();
+    this.userService
+      .getUserNames()
+      .forEach((name) => this.addUserIntoOption(name));
+    // Refresh expense list
+    DOMHelper.removeElement(this.elements.expenseList);
+    this.expenseService
+      .getAllExpense()
+      .forEach((expense) => this.showExpenseOnUi(expense));
+    // clear result
+    DOMHelper.removeElement(this.elements.shouldPay);
+    DOMHelper.removeElement(this.elements.shouldReceive);
+    DOMHelper.removeElement(this.elements.suggestedSettlements);
+  }
 }

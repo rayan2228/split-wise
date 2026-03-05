@@ -51,6 +51,7 @@ export class UserService {
   }
 
   importUsers(userData) {
+    this.deleteAllUser();
     if (!Array.isArray(userData)) {
       throw new Error("user data must be an array");
     }

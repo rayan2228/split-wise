@@ -118,6 +118,7 @@ export class ExpenseService {
   }
 
   importExpenses(expenseData) {
+    this.deleteAllExpense();
     if (!Array.isArray(expenseData)) {
       throw new Error("expense data must be an array");
     }
